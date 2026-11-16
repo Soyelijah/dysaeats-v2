@@ -1,0 +1,19 @@
+node_modules/
+dist/
+.next/
+build/
+coverage/
+.turbo/
+
+# Secretos: nunca se versionan
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Sistema y editores
+.DS_Store
+.idea/
+.vscode/
+*.log
