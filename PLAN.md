@@ -27,7 +27,7 @@
 
 - [x] **Fase 0 — Repo, plan y herramientas.**
       Compuerta: `pnpm verify 0` (estructura, instalación limpia, typecheck, formato).
-- [ ] **Fase 1 — Base de datos.**
+- [x] **Fase 1 — Base de datos.**
       Postgres + PostGIS en Docker, 5 migraciones con checksum, seed sin credenciales, y tests de integridad y de asignación de repartidores por cercanía.
       Compuerta: `pnpm verify 1` (incluye la Fase 0).
 - [ ] **Fase 2 — Backend base y autenticación.**
