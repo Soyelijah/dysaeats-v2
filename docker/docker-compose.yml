@@ -1,0 +1,27 @@
+# Base de datos local de desarrollo: Postgres 16 + PostGIS 3.4.
+# Uso desde la raíz del repo:  pnpm db:up   |   pnpm db:down   |   pnpm db:psql
+# La contraseña se define en .env (copia .env.example). No hay valor por defecto a propósito.
+
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    container_name: dysaeats-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-dysaeats_app}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Define POSTGRES_PASSWORD en .env}
+      POSTGRES_DB: dysaeats_dev
+    ports:
+      # Solo accesible desde tu propio computador.
+      - '127.0.0.1:${POSTGRES_PORT:-5433}:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-dysaeats_app} -d dysaeats_dev']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:

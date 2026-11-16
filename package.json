@@ -13,7 +13,15 @@
     "verify": "node scripts/verify.mjs",
     "typecheck": "pnpm -r --if-present typecheck",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "db:up": "docker compose --env-file .env -f docker/docker-compose.yml up -d --wait",
+    "db:down": "docker compose --env-file .env -f docker/docker-compose.yml down",
+    "db:psql": "docker exec -it dysaeats-postgres sh -c 'psql -U \"$POSTGRES_USER\" -d dysaeats_dev'",
+    "db:migrate": "pnpm --filter @dysaeats/db migrate",
+    "db:seed": "pnpm --filter @dysaeats/db seed",
+    "db:reset": "pnpm --filter @dysaeats/db reset",
+    "db:status": "pnpm --filter @dysaeats/db status",
+    "test:db": "pnpm --filter @dysaeats/db test"
   },
   "devDependencies": {
     "prettier": "^3.3.3",

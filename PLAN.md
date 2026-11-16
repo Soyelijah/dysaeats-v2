@@ -28,8 +28,8 @@
 - [x] **Fase 0 — Repo, plan y herramientas.**
       Compuerta: `pnpm verify 0` (estructura, instalación limpia, typecheck, formato).
 - [ ] **Fase 1 — Base de datos.**
-      Postgres + PostGIS en Docker, migraciones, seed, test de integración que conecta y hace una consulta geográfica.
-      Compuerta: `pnpm verify 1`.
+      Postgres + PostGIS en Docker, 5 migraciones con checksum, seed sin credenciales, y tests de integridad y de asignación de repartidores por cercanía.
+      Compuerta: `pnpm verify 1` (incluye la Fase 0).
 - [ ] **Fase 2 — Backend base y autenticación.**
       NestJS arranca, `/health` responde, registro, login y refresh con JWT, roles (cliente, repartidor, admin).
       Compuerta: tests unitarios + e2e de auth verdes, `pnpm verify 2`.

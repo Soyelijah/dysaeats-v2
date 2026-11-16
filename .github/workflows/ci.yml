@@ -11,6 +11,23 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    services:
+      # Misma imagen que usa el desarrollo local (docker/docker-compose.yml).
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_USER: dysaeats_app
+          POSTGRES_PASSWORD: ci_only_password
+          POSTGRES_DB: dysaeats_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U dysaeats_app -d dysaeats_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgres://dysaeats_app:ci_only_password@localhost:5432/dysaeats_test
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -19,4 +36,5 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm verify 0
+      # Compuerta de la fase más reciente: incluye todas las anteriores.
+      - run: pnpm verify 1
